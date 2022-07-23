@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "declaration": true,
+    "esModuleInterop": true,
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "strict": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "stripInternal": true,
+    "outDir": "lib",
+    "rootDir": "."
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

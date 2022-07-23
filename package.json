@@ -1,0 +1,83 @@
+{
+  "name": "krist",
+  "version": "2.0.1",
+  "description": "Krist API library for Node.js and the browser",
+  "keywords": [
+    "krist"
+  ],
+  "repository": "https://github.com/tmpim/Krist.js",
+  "homepage": "https://github.com/tmpim/Krist.js#readme",
+  "author": "Lemmmy",
+  "license": "GPL-3.0",
+  "private": false,
+  "main": "lib/node.js",
+  "types": "lib/src/node.d.ts",
+  "files": [
+    "lib/**/*.{ts,js}",
+    "README.md",
+    "LICENSE"
+  ],
+  "browser": {
+    "ws": false
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "npm run clean && npm run rollup",
+    "rollup": "rollup --config rollup.config.js",
+    "test": "TS_NODE_PROJECT='./tsconfig.test.json' NODE_ENV=test ts-mocha 'test/**/*.test.ts'",
+    "test:coverage": "nyc npm run test",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "docs": "typedoc",
+    "watch:docs": "typedoc --watch"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "buffer": "^6.0.3",
+    "cross-fetch": "^3.1.5",
+    "limiter": "^2.1.0",
+    "sha.js": "^2.4.11",
+    "tiny-typed-emitter": "^2.1.0",
+    "websocket-as-promised": "^2.0.1",
+    "ws": "^8.6.0"
+  },
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "@types/axios": "^0.14.0",
+    "@types/chai": "^4.3.1",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/chai-http": "^4.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^17.0.31",
+    "@types/sha.js": "^2.4.0",
+    "@types/sinon": "^10.0.11",
+    "@types/ws": "^8.5.3",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
+    "chai-http": "^4.3.0",
+    "eslint": "^8.14.0",
+    "eslint-plugin-tsdoc": "^0.2.16",
+    "mocha": "^9.2.2",
+    "mochawesome": "^7.1.3",
+    "nyc": "^15.1.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.71.1",
+    "rollup-plugin-dts": "^4.2.1",
+    "rollup-plugin-polyfill-node": "^0.9.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-visualizer": "^5.6.0",
+    "sinon": "^13.0.2",
+    "ts-loader": "^9.3.0",
+    "ts-mocha": "^9.0.2",
+    "ts-node": "^10.7.0",
+    "tslib": "^2.4.0",
+    "typedoc": "^0.23.7",
+    "typescript": "^4.6.4",
+    "utility-types": "^3.10.0"
+  }
+}

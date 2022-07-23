@@ -1,0 +1,7 @@
+{
+  "entryPoints": ["src/browser.ts"],
+  "out": "docs",
+  "name": "Krist.js API reference",
+  "includeVersion": true,
+  "excludeInternal": true
+}
