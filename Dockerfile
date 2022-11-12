@@ -5,5 +5,6 @@ RUN yarn global add typedoc@^0.23.7
 RUN yarn install
 ENV NODE_ENV=production
 COPY . .
+RUN mkdir docs out
 RUN yarn run docs
-CMD du -sh docs
+CMD cp -r docs/* out/
