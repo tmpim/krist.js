@@ -1,0 +1,11 @@
+dist
+lib
+build
+coverage
+mochawesome-report
+node_modules
+.env
+*.log
+stats.html
+.nyc_output
+docs
