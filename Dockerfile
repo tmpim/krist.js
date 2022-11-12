@@ -6,4 +6,5 @@ RUN yarn install
 ENV NODE_ENV=production
 COPY . .
 
+RUN mkdir docs
 CMD yarn run docs
