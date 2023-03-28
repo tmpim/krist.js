@@ -304,20 +304,20 @@ export class KristApi {
   // ---------------------------------------------------------------------------
   // Blocks
   // ---------------------------------------------------------------------------
-  /** @group API Fetch - Blocks */ public getBlocks = getBlocks;
-  /** @group API Fetch - Blocks */ public getLowestBlocks = getLowestBlocks;
-  /** @group API Fetch - Blocks */ public getLastBlock = getLastBlock;
-  /** @group API Fetch - Blocks */ public getBlockValue = getBlockValue;
-  /** @group API Fetch - Blocks */ public getBlock = getBlock;
-  /** @group API Fetch - Blocks */ public getLatestBlocks = getLatestBlocks;
+  /** @internal */ public getBlocks = getBlocks;
+  /** @internal */ public getLowestBlocks = getLowestBlocks;
+  /** @internal */ public getLastBlock = getLastBlock;
+  /** @internal */ public getBlockValue = getBlockValue;
+  /** @internal */ public getBlock = getBlock;
+  /** @internal */ public getLatestBlocks = getLatestBlocks;
 
-  /** @group API Fetch - Blocks */ public paginateBlocks = paginateBlocks;
-  /** @group API Fetch - Blocks */ public paginateLatestBlocks = paginateLatestBlocks;
-  /** @group API Fetch - Blocks */ public paginateLowestBlocks = paginateLowestBlocks;
+  /** @internal */ public paginateBlocks = paginateBlocks;
+  /** @internal */ public paginateLatestBlocks = paginateLatestBlocks;
+  /** @internal */ public paginateLowestBlocks = paginateLowestBlocks;
 
-  /** @group API Fetch - Blocks */ public getWork = getWork;
-  /** @group API Fetch - Blocks */ public getWorkOverTime = getWorkOverTime;
-  /** @group API Fetch - Blocks */ public getDetailedWork = getDetailedWork;
+  /** @internal */ public getWork = getWork;
+  /** @internal */ public getWorkOverTime = getWorkOverTime;
+  /** @internal */ public getDetailedWork = getDetailedWork;
 
   /** @internal */ public submitBlock = submitBlock;
 
