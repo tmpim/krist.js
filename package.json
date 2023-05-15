@@ -1,6 +1,6 @@
 {
   "name": "krist",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Krist API library for Node.js and the browser",
   "keywords": [
     "krist"
