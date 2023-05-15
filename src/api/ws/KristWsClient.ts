@@ -70,7 +70,6 @@ interface KristWsClientEvents {
 export type WsConnectionState = "connecting" | "connected" | "disconnected";
 
 const DEFAULT_CONNECT_DEBOUNCE_MS = 1000;
-const MAX_CONNECT_DEBOUNCE_MS = 300000;
 
 export interface KristWsClientOptionsPrivatekey {
   /**
@@ -115,6 +114,9 @@ export interface KristWsClientOptions extends KristWsClientOptionsPassword,
   /** The events to subscribe to. Defaults to `[]` - no events will be
    * received. */
   initialSubscriptions?: KristWsSubscription[];
+
+  /** The maximum time between reconnection attempts, in seconds. */
+  maxReconnectSecs?: number;
 }
 
 // Global rate limiter so that multiple KristApi instances will share this
@@ -136,7 +138,7 @@ const limiter = new RateLimiter({
  *
  * When disconnecting from the Krist server, the client will automatically try
  * to reconnect, starting with a 1 second delay, doubling with each attempt up
- * to a maximum of 300 seconds (5 minutes). The library will not stop attempting
+ * to a maximum of 60 seconds (1 minute). The library will not stop attempting
  * to reconnect - this is the responsibility of the caller.
 */
 export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
@@ -149,13 +151,14 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
   }> = {};
 
   private reconnectionTimer?: any; // browser returns number, Node returns Timer
-  private connectDebounce = DEFAULT_CONNECT_DEBOUNCE_MS;
+  private connectDebounceMs = DEFAULT_CONNECT_DEBOUNCE_MS;
   private forceClosing = false;
 
   private wsp?: WebSocketAsPromised;
 
   protected privatekey?: string;
   private initSubscriptions: KristWsSubscription[] = [];
+  private maxReconnectSecs = 60;
 
   /**
    * Emitted when the client has connected to the server and is ready to receive
@@ -229,6 +232,7 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
     super();
 
     this.initSubscriptions = options?.initialSubscriptions ?? [];
+    this.maxReconnectSecs = Math.max(options?.maxReconnectSecs || 60, 1);
   }
 
   private async _connect() {
@@ -273,7 +277,7 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
 
     this.messageId = 1;
     await this.wsp.open();
-    this.connectDebounce = DEFAULT_CONNECT_DEBOUNCE_MS;
+    this.connectDebounceMs = DEFAULT_CONNECT_DEBOUNCE_MS;
   }
 
   /**
@@ -355,9 +359,9 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
     this.setConnectionState("disconnected");
 
     this.reconnectionTimer = setTimeout(() => {
-      this.connectDebounce = Math.min(this.connectDebounce * 2, MAX_CONNECT_DEBOUNCE_MS);
+      this.connectDebounceMs = Math.min(this.connectDebounceMs * 2, this.maxReconnectSecs * 1000);
       this._connect();
-    }, this.connectDebounce);
+    }, this.connectDebounceMs);
   }
 
   private handleClose(event: { code: number; reason: string }): void {
