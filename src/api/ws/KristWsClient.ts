@@ -280,7 +280,6 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
       const onMessage = (msg: any) => {
         try {
           const data = JSON.parse(msg) as KristWsS2CMessage;
-          console.log(data);
           this.handleMessage(data);
         } catch (err: any) {
           this.emit("errorInvalidMessage", msg);
