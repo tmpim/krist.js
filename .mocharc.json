@@ -5,7 +5,7 @@
   "exit": true,
   "node-option": [
     "experimental-specifier-resolution=node",
-    "import=tsx/esm",
+    "import=tsx",
     "trace-uncaught"
   ]
 }
