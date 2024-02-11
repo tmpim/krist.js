@@ -40,7 +40,7 @@ import { getWork } from "./routes/wsWork.js";
 import NodeWebSocket from "ws";
 
 import { TypedEmitter } from "tiny-typed-emitter";
-import * as rateLimiter from "limiter";
+import rateLimiter from "limiter";
 
 import { KristWalletFormatName } from "../../util/walletFormats.js";
 import { Sha256Fn } from "../../util/internalCrypto.js";

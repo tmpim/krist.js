@@ -23,15 +23,15 @@ export * from "./KristApi.js";
 export * from "./ws/KristWsClient.js";
 
 // Export all the API types (but not the internal functions)
-export { KristApiPaginationOptions,
+export type { KristApiPaginationOptions,
   KristApiTransactionPaginationOptions, OnPageFn } from "../util/apiUtil.js";
-export { KristAuthOptionsPrivatekey, KristAuthOptionsPassword,
+export type { KristAuthOptionsPrivatekey, KristAuthOptionsPassword,
   KristAuthOptions } from "../util/internalUtil.js";
-export { KristApiAddressResponse, KristApiAddressesResponse } from "./routes/addresses.js";
-export { KristApiBlockResponse,
+export type { KristApiAddressResponse, KristApiAddressesResponse } from "./routes/addresses.js";
+export type { KristApiBlockResponse,
   KristApiBlocksResponse } from "./routes/blocks.js";
-export { KristLoginResponse } from "./routes/login.js";
-export { KristApiNameResponse,
+export type { KristLoginResponse } from "./routes/login.js";
+export type { KristApiNameResponse,
   KristApiNamesResponse } from "./routes/names.js";
-export { KristApiTransactionResponse, KristApiTransactionsResponse,
+export type { KristApiTransactionResponse, KristApiTransactionsResponse,
   KristApiMakeTransactionOptions } from "./routes/transactions.js";

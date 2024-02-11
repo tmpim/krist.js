@@ -36,7 +36,7 @@
     "build": "yarn run clean && yarn run build:node && yarn run build:browser",
     "build:node": "tsc -p tsconfig.json",
     "build:browser": "rollup --config rollup.config.js",
-    "test": "cross-env TS_NODE_PROJECT='./tsconfig.test.json' NODE_ENV=test mocha",
+    "test": "cross-env TSX_TSCONFIG_PATH='./tsconfig.test.json' NODE_ENV=test mocha",
     "test:coverage": "nyc yarn run test",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "docs": "typedoc",

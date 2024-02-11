@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import * as rateLimiter from "limiter";
+import rateLimiter from "limiter";
 import os from "os";
 
 import { KristApiResponse } from "../types/index.js";
