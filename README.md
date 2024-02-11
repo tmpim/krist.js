@@ -8,6 +8,7 @@ Supports Node.js and the browser.
 
 ## Features
 - Works on the server with Node.js, and in browsers
+- ES Modules support
 - Modern, Promise-based API with TypeScript support designed with async/wait in mind
 - Type-safe functions for all HTTP endpoints
 - Fully-featured WebSocket client with events and automatic reconnection
