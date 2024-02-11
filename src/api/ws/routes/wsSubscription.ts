@@ -23,7 +23,7 @@ import {
   KristWsSubscription, KristWsS2CSubscribe,
   KristWsC2SSubscribe, KristWsS2CUnsubscribe,
   KristWsC2SUnsubscribe, KristWsS2CGetSubscriptionLevel
-} from "../../../types";
+} from "../../../types/index.js";
 
 import { KristWsClient } from "../KristWsClient.js";
 

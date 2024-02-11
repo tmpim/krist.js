@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristWsC2SSubmitBlock, KristWsS2CSubmitBlock } from "../../../types";
+import { KristWsC2SSubmitBlock, KristWsS2CSubmitBlock } from "../../../types/index.js";
 import { KristWsClient } from "../KristWsClient.js";
 
 /** @internal */

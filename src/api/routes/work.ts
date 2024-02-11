@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristWorkDetailed } from "../../types";
+import { KristWorkDetailed } from "../../types/index.js";
 import { KristApi } from "../KristApi.js";
 
 // -----------------------------------------------------------------------------

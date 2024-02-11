@@ -19,11 +19,11 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristBlock, KristBlockValue } from "../../types";
+import { KristBlock, KristBlockValue } from "../../types/index.js";
 import {
   KristApiPaginatedResponseBase, KristApiPaginationOptions, OnPageFn,
   paginateCollection, pickPaginationOptions
-} from "../../util/apiUtil";
+} from "../../util/apiUtil.js";
 import { KristApi } from "../KristApi.js";
 
 export interface KristApiBlockResponse {

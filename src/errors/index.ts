@@ -19,4 +19,4 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-export * from "./KristError";
+export * from "./KristError.js";

@@ -11,7 +11,14 @@
   "license": "GPL-3.0",
   "private": false,
   "type": "module",
-  "exports": "./lib/node.js",
+  "exports": {
+    ".": {
+      "import": "./lib/src/node.js",
+      "default": "./lib/src/node.js",
+      "browser": "./lib/browser.js",
+      "und": "./lib/browser.js"
+    }
+  },
   "types": "lib/src/node.d.ts",
   "files": [
     "lib/**/*.{ts,js}",
@@ -21,12 +28,16 @@
   "browser": {
     "ws": false
   },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "clean": "rimraf lib",
-    "build": "npm run clean && npm run rollup",
-    "rollup": "rollup --config rollup.config.js",
+    "build": "yarn run clean && yarn run build:node && yarn run build:browser",
+    "build:node": "tsc -p tsconfig.json",
+    "build:browser": "rollup --config rollup.config.js",
     "test": "cross-env TS_NODE_PROJECT='./tsconfig.test.json' NODE_ENV=test mocha",
-    "test:coverage": "nyc npm run test",
+    "test:coverage": "nyc yarn run test",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "docs": "typedoc",
     "watch:docs": "typedoc --watch"
@@ -35,7 +46,7 @@
     "@aws-crypto/sha256-js": "^5.2.0",
     "axios": "^1.6.7",
     "buffer": "^6.0.3",
-    "cross-fetch": "^4.0.0",
+    "limiter": "^2.1.0",
     "limiter-es6-compat": "^2.1.2",
     "tiny-typed-emitter": "^2.1.0",
     "ws": "^8.16.0",

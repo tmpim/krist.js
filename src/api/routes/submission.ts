@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristAddress, KristBlock } from "../../types";
+import { KristAddress, KristBlock } from "../../types/index.js";
 import { KristApi } from "../KristApi.js";
 
 /** @deprecated Block submission is disabled. */

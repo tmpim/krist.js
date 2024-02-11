@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristWsS2CWork } from "../../../types";
+import { KristWsS2CWork } from "../../../types/index.js";
 import { KristWsClient } from "../KristWsClient.js";
 
 export async function getWork(this: KristWsClient): Promise<KristWsS2CWork> {

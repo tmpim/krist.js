@@ -20,11 +20,11 @@
  */
 
 import { KristApi } from "../KristApi.js";
-import { KristName } from "../../types";
+import { KristName } from "../../types/index.js";
 import {
   KristApiPaginatedResponseBase, KristApiPaginationOptions, OnPageFn,
   paginateCollection, pickPaginationOptions
-} from "../../util/apiUtil";
+} from "../../util/apiUtil.js";
 import { calculateAddressFromOptions, KristAuthOptions } from "../../util/internalUtil.js";
 
 export interface KristApiNameResponse {

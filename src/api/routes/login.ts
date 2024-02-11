@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristAddress } from "../../types";
+import { KristAddress } from "../../types/index.js";
 import { calculateAddressFromOptions, KristAuthOptions } from "../../util/internalUtil.js";
 import { KristApi } from "../KristApi.js";
 

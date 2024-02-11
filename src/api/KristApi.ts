@@ -19,14 +19,13 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { fetch } from "cross-fetch";
-import { RateLimiter } from "limiter-es6-compat";
+import * as rateLimiter from "limiter";
 import os from "os";
 
-import { KristApiResponse } from "../types";
+import { KristApiResponse } from "../types/index.js";
 
 import packageJson from "../../package.json" with { "type": "json" };
-import { coerceKristError, KristErrorRateLimit } from "../errors";
+import { coerceKristError, KristErrorRateLimit } from "../errors/index.js";
 import { argObject, argStringNonEmpty } from "../util/argValidation.js";
 import { isNil } from "../util/internalUtil.js";
 
@@ -36,24 +35,24 @@ import {
   getAddress, getAddresses, getAddressNames, getAddressTransactions,
   getRichAddresses, paginateAddresses, paginateAddressNames,
   paginateAddressTransactions, paginateRichAddresses
-} from "./routes/addresses";
+} from "./routes/addresses.js";
 import { motd } from "./routes/motd.js";
 import { supply } from "./routes/supply.js";
 import {
   getBlocks, getLatestBlocks, getLowestBlocks, getLastBlock, getBlockValue,
   getBlock, paginateBlocks, paginateLatestBlocks, paginateLowestBlocks
-} from "./routes/blocks";
+} from "./routes/blocks.js";
 import { login } from "./routes/login.js";
 import {
   checkNameAvailability, getNameCost, getNameBonus, getNames, getNewNames,
   getName, registerName, transferName, updateName, paginateNames,
   paginateNewNames
-} from "./routes/names";
+} from "./routes/names.js";
 import { submitBlock } from "./routes/submission.js";
 import {
   getTransactions, getLatestTransactions, getTransaction, makeTransaction,
   paginateTransactions, paginateLatestTransactions
-} from "./routes/transactions";
+} from "./routes/transactions.js";
 import { getDetailedWork, getWork, getWorkOverTime } from "./routes/work.js";
 import { wsStart } from "./routes/wsStart.js";
 
@@ -75,7 +74,7 @@ export const buildBody = (value: any): RequestInit => ({
 });
 
 // Global rate limiter so that multiple KristApi instances will share this
-const limiter = new RateLimiter({
+const limiter = new rateLimiter.RateLimiter({
   // Slightly lower than server to account for timing differences
   tokensPerInterval: 300,
   interval: "minute"

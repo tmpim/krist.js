@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristErrorWebSocketStart } from "../../errors";
+import { KristErrorWebSocketStart } from "../../errors/index.js";
 import { KristApi } from "../KristApi.js";
 
 export async function wsStart(

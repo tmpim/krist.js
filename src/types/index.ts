@@ -19,6 +19,6 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-export * from "./api";
-export * from "./krist";
-export * from "./ws";
+export * from "./api.js";
+export * from "./krist.js";
+export * from "./ws.js";

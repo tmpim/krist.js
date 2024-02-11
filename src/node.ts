@@ -19,10 +19,10 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-export * from "./api";
-export * from "./types";
-export * from "./util/addressAlgo";
-export * from "./util/commonMeta";
-export * from "./util/nameParts";
-export * from "./util/walletFormats";
-export * from "./util/validation";
+export * from "./api/index.js";
+export * from "./types/index.js";
+export * from "./util/addressAlgo.js";
+export * from "./util/commonMeta.js";
+export * from "./util/nameParts.js";
+export * from "./util/walletFormats.js";
+export * from "./util/validation.js";

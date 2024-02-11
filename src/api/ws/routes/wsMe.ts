@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristWsS2CMe } from "../../../types";
+import { KristWsS2CMe } from "../../../types/index.js";
 import { KristWsClient } from "../KristWsClient.js";
 
 /**

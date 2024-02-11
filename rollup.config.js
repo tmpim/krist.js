@@ -30,36 +30,11 @@ import { visualizer as pluginVisualizer } from "rollup-plugin-visualizer";
 
 export default [
   {
-    // Node bundle
-    input: "src/node.ts",
-    output: {
-      dir: "lib",
-      format: "es",
-      esModule: true,
-      name: "krist",
-      plugins: [
-        pluginTerser(),
-      ]
-    },
-    plugins: [
-      pluginNodeResolve({ browser: false }),
-      pluginCommonjs({ defaultIsModuleExports: true }),
-      pluginTypescript({ tsconfig: "./tsconfig.json" }),
-      pluginJson()
-    ]
-  },
-  {
-    // Declarations: node.d.ts
-    input: "lib/src/node.d.ts",
-    output: [{ file: "lib/node.d.ts", format: "es" }],
-    plugins: [pluginDts()]
-  },
-  {
     // Browser bundle
     input: "src/browser.ts",
     output: {
       dir: "lib",
-      format: "es",
+      format: "umd",
       esModule: true,
       name: "krist",
       globals: {

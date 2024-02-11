@@ -19,20 +19,19 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-export * from "./KristApi";
-export * from "./ws/KristWsClient";
+export * from "./KristApi.js";
+export * from "./ws/KristWsClient.js";
 
 // Export all the API types (but not the internal functions)
 export { KristApiPaginationOptions,
-  KristApiTransactionPaginationOptions, OnPageFn } from "../util/apiUtil";
+  KristApiTransactionPaginationOptions, OnPageFn } from "../util/apiUtil.js";
 export { KristAuthOptionsPrivatekey, KristAuthOptionsPassword,
-  KristAuthOptions } from "../util/internalUtil";
-export { KristApiAddressResponse,
-  KristApiAddressesResponse } from "./routes/addresses";
+  KristAuthOptions } from "../util/internalUtil.js";
+export { KristApiAddressResponse, KristApiAddressesResponse } from "./routes/addresses.js";
 export { KristApiBlockResponse,
-  KristApiBlocksResponse } from "./routes/blocks";
-export { KristLoginResponse } from "./routes/login";
+  KristApiBlocksResponse } from "./routes/blocks.js";
+export { KristLoginResponse } from "./routes/login.js";
 export { KristApiNameResponse,
-  KristApiNamesResponse } from "./routes/names";
+  KristApiNamesResponse } from "./routes/names.js";
 export { KristApiTransactionResponse, KristApiTransactionsResponse,
-  KristApiMakeTransactionOptions } from "./routes/transactions";
+  KristApiMakeTransactionOptions } from "./routes/transactions.js";

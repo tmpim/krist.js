@@ -20,7 +20,7 @@
  */
 
 import { KristApi } from "../KristApi.js";
-import { KristMotd } from "../../types";
+import { KristMotd } from "../../types/index.js";
 
 // -----------------------------------------------------------------------------
 // GET /motd

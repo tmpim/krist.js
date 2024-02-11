@@ -19,11 +19,11 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristTransaction } from "../../types";
+import { KristTransaction } from "../../types/index.js";
 import {
   KristApiPaginatedResponseBase, KristApiTransactionPaginationOptions, OnPageFn,
   paginateCollection, pickTransactionPaginationOptions
-} from "../../util/apiUtil";
+} from "../../util/apiUtil.js";
 import { calculateAddressFromOptions, KristAuthOptions } from "../../util/internalUtil.js";
 import { KristApi } from "../KristApi.js";
 

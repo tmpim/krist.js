@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristTransaction, KristWsC2SMakeTransaction, KristWsS2CMakeTransaction } from "../../../types";
+import { KristTransaction, KristWsC2SMakeTransaction, KristWsS2CMakeTransaction } from "../../../types/index.js";
 import { calculateAddressFromOptions, KristAuthOptions } from "../../../util/internalUtil.js";
 import { KristWsClient } from "../KristWsClient.js";
 

@@ -24,7 +24,7 @@ import { argFunction, argOneOf, argStringNonEmpty } from "./argValidation.js";
 import { doubleSha256, sha256, Sha256Fn } from "./internalCrypto.js";
 import {
   applyWalletFormat, KristWalletFormatName, KRIST_WALLET_FORMAT_NAMES
-} from "./walletFormats";
+} from "./walletFormats.js";
 
 /**
  * Generates a Krist address from a password. This will also apply the given

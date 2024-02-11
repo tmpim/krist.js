@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { isObject } from "./internalUtil";
+import { isObject } from "./internalUtil.js";
 
 export class ArgumentError extends Error {
   constructor(message: string, public argument: string) {

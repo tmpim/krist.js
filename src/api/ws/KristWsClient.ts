@@ -27,7 +27,7 @@ import {
   KristWsHelloMessage,
   _isMsgBlockEvent, _isMsgEvent, _isMsgHello, _isMsgKeepalive,
   _isMsgNameEvent, _isMsgResponse, _isMsgTransactionEvent,
-} from "../../types";
+} from "../../types/index.js";
 import { KristApi } from "../KristApi.js";
 
 import { getAddress } from "./routes/wsAddresses.js";
@@ -40,7 +40,7 @@ import { getWork } from "./routes/wsWork.js";
 import NodeWebSocket from "ws";
 
 import { TypedEmitter } from "tiny-typed-emitter";
-import { RateLimiter } from "limiter-es6-compat";
+import * as rateLimiter from "limiter";
 
 import { KristWalletFormatName } from "../../util/walletFormats.js";
 import { Sha256Fn } from "../../util/internalCrypto.js";
@@ -122,7 +122,7 @@ export interface KristWsClientOptions extends KristWsClientOptionsPassword,
 }
 
 // Global rate limiter so that multiple KristApi instances will share this
-const limiter = new RateLimiter({
+const limiter = new rateLimiter.RateLimiter({
   tokensPerInterval: 120,
   interval: "minute"
 });

@@ -24,8 +24,8 @@ import {
   KristApiPaginatedResponseBase, KristApiPaginationOptions,
   KristApiTransactionPaginationOptions, OnPageFn, paginateCollection,
   pickPaginationOptions, pickTransactionPaginationOptions
-} from "../../util/apiUtil";
-import { KristAddress, KristName, KristTransaction } from "../../types";
+} from "../../util/apiUtil.js";
+import { KristAddress, KristName, KristTransaction } from "../../types/index.js";
 import { NamesResponse } from "./names.js";
 import { TransactionsResponse } from "./transactions.js";
 

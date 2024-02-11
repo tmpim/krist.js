@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristAddress, KristWsC2SAddress, KristWsS2CAddress } from "../../../types";
+import { KristAddress, KristWsC2SAddress, KristWsS2CAddress } from "../../../types/index.js";
 import { KristWsClient } from "../KristWsClient.js";
 
 /**
