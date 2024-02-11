@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -23,7 +23,7 @@ import { expect } from "chai";
 
 import { createHash } from "crypto";
 
-import { applyWalletFormat, calculateAddress, formatNeedsUsername, makeV2Address } from "../src/node";
+import { applyWalletFormat, calculateAddress, formatNeedsUsername, makeV2Address } from "../src/node.js";
 
 const sha512 = async (inp: string) =>
   createHash("sha512").update(inp).digest("hex");

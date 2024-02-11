@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -20,7 +20,7 @@
  */
 
 import { KristWorkDetailed } from "../../types";
-import { KristApi } from "../KristApi";
+import { KristApi } from "../KristApi.js";
 
 // -----------------------------------------------------------------------------
 // GET /work

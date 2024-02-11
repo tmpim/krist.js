@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -20,8 +20,8 @@
  */
 
 import { KristTransaction, KristWsC2SMakeTransaction, KristWsS2CMakeTransaction } from "../../../types";
-import { calculateAddressFromOptions, KristAuthOptions } from "../../../util/internalUtil";
-import { KristWsClient } from "../KristWsClient";
+import { calculateAddressFromOptions, KristAuthOptions } from "../../../util/internalUtil.js";
+import { KristWsClient } from "../KristWsClient.js";
 
 export type KristWsMakeTransactionOptions = KristAuthOptions & {
   metadata?: string;

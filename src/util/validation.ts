@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { memoize, escapeRegExp, toString } from "./internalUtil";
+import { escapeRegExp, memoize, toString } from "./internalUtil.js";
 
 const MAX_ADDRESS_PREFIX_LENGTH = 1;
 const _cleanAddressPrefix = (addressPrefix: string | undefined | null = "k"): string => {
@@ -27,8 +27,7 @@ const _cleanAddressPrefix = (addressPrefix: string | undefined | null = "k"): st
   // but let's call it future-proofing.
   const stringPrefix = toString(addressPrefix);
   const shortPrefix = stringPrefix.substring(0, MAX_ADDRESS_PREFIX_LENGTH);
-  const escaped = escapeRegExp(shortPrefix);
-  return escaped;
+  return escapeRegExp(shortPrefix);
 };
 export const cleanKristAddressPrefix = memoize(_cleanAddressPrefix);
 
@@ -43,12 +42,12 @@ const _getAddressRegexV2 = (addressPrefix: string | undefined | null = "k"): Reg
 export const getKristAddressRegexV2 = memoize(_getAddressRegexV2);
 
 /**
- * Returns whether or not an address is a valid Krist address.
+ * Returns whether an address is a valid Krist address.
  *
  * @param address - The address to check for validity.
  * @param addressPrefix - The single-character address prefix provided by the
  *   sync node.
- * @param allowV1 - Whether or not the function should validate v1 addresses.
+ * @param allowV1 - Whether the function should validate v1 addresses.
  *   Note that as of February 2021, the Krist server no longer accepts
  *   any kind of transaction to/from a v1 address, so features that are
  *   validating an address for purpose of a transaction (e.g. the address

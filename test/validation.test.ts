@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -21,7 +21,7 @@
 
 import { expect } from "chai";
 
-import { isKristV1Address, isValidKristAddress } from "../src/node";
+import { isKristV1Address, isValidKristAddress } from "../src/node.js";
 
 describe("isValidKristAddress", () => {
   it("returns false with no address", () => expect((isValidKristAddress as any)()).to.be.false);

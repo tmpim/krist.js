@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -21,7 +21,8 @@
 
 import { expect } from "chai";
 
-import { KristApi } from "../../src/node";
+// noinspection ES6PreferShortImport
+import { KristApi } from "../../src/node.js";
 
 describe("web api - constructor", () => {
   describe("validates arguments", () => {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -19,15 +19,15 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristApi } from "../KristApi";
+import { KristApi } from "../KristApi.js";
 import {
   KristApiPaginatedResponseBase, KristApiPaginationOptions,
   KristApiTransactionPaginationOptions, OnPageFn, paginateCollection,
   pickPaginationOptions, pickTransactionPaginationOptions
 } from "../../util/apiUtil";
 import { KristAddress, KristName, KristTransaction } from "../../types";
-import { NamesResponse } from "./names";
-import { TransactionsResponse } from "./transactions";
+import { NamesResponse } from "./names.js";
+import { TransactionsResponse } from "./transactions.js";
 
 export interface KristApiAddressResponse {
   address: KristAddress;

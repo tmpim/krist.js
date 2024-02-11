@@ -1,5 +1,11 @@
 {
+  "extension": "ts",
+  "spec": "test/**/*.test.ts",
   "require": "test/fixtures.ts",
-  "reporter": "mochawesome",
-  "exit": true
+  "exit": true,
+  "node-option": [
+    "experimental-specifier-resolution=node",
+    "import=tsx/esm",
+    "trace-uncaught"
+  ]
 }

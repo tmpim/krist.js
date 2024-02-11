@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -25,7 +25,7 @@ import {
   KristWsC2SUnsubscribe, KristWsS2CGetSubscriptionLevel
 } from "../../../types";
 
-import { KristWsClient } from "../KristWsClient";
+import { KristWsClient } from "../KristWsClient.js";
 
 export async function getSubscriptions(
   this: KristWsClient

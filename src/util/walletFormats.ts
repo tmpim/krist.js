@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -19,11 +19,9 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { isNil } from "./internalUtil";
-import { argOneOf, argStringNonEmpty, argFunction } from "./argValidation";
-import { sha256, Sha256Fn } from "./internalCrypto";
-
-// import ow from "ow";
+import { isNil } from "./internalUtil.js";
+import { argOneOf, argStringNonEmpty, argFunction } from "./argValidation.js";
+import { sha256, Sha256Fn } from "./internalCrypto.js";
 
 export interface KristWalletFormat {
   (sha256Fn: Sha256Fn, password: string, username?: string): Promise<string>;
@@ -85,7 +83,7 @@ export const KRIST_WALLET_ADVANCED_FORMATS: KristWalletFormatName[] = [
  * @param username - The username to use when generating the private key if the
  *   format requires it (e.g. <code>kristwallet_username_appendhashes</code>
  *   and <code>kristwallet_username</code>)
- * @param sha256 - The SHA-256 function to use. Defaults to a pure JS
+ * @param sha256Fn - The SHA-256 function to use. Defaults to a pure JS
  *   implementation. You do not normally need to supply this.
  *
  * @returns The generated private key

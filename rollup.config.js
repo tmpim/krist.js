@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -25,7 +25,7 @@ import pluginDts from "rollup-plugin-dts";
 import { nodeResolve as pluginNodeResolve } from "@rollup/plugin-node-resolve";
 import pluginNodePolyfills from "rollup-plugin-polyfill-node";
 import pluginCommonjs from "@rollup/plugin-commonjs";
-import { terser as pluginTerser } from "rollup-plugin-terser";
+import pluginTerser from "@rollup/plugin-terser";
 import { visualizer as pluginVisualizer } from "rollup-plugin-visualizer";
 
 export default [
@@ -34,7 +34,8 @@ export default [
     input: "src/node.ts",
     output: {
       dir: "lib",
-      format: "umd",
+      format: "es",
+      esModule: true,
       name: "krist",
       plugins: [
         pluginTerser(),
@@ -42,7 +43,7 @@ export default [
     },
     plugins: [
       pluginNodeResolve({ browser: false }),
-      pluginCommonjs({ include: ["node_modules/**"] }),
+      pluginCommonjs({ defaultIsModuleExports: true }),
       pluginTypescript({ tsconfig: "./tsconfig.json" }),
       pluginJson()
     ]
@@ -58,7 +59,7 @@ export default [
     input: "src/browser.ts",
     output: {
       dir: "lib",
-      format: "umd",
+      format: "es",
       esModule: true,
       name: "krist",
       globals: {
@@ -71,7 +72,7 @@ export default [
     external: ["ws"],
     plugins: [
       pluginNodePolyfills(),
-      pluginCommonjs({ include: "node_modules/**" }),
+      pluginCommonjs({ defaultIsModuleExports: true }),
       pluginNodeResolve({ browser: true }),
       pluginTypescript({ sourceMap: true, tsconfig: "./tsconfig.json" }),
       pluginJson(),

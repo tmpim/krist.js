@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -28,24 +28,25 @@ import {
   _isMsgBlockEvent, _isMsgEvent, _isMsgHello, _isMsgKeepalive,
   _isMsgNameEvent, _isMsgResponse, _isMsgTransactionEvent,
 } from "../../types";
-import { KristApi } from "../KristApi";
+import { KristApi } from "../KristApi.js";
 
-import { getAddress } from "./routes/wsAddresses";
-import { getMe } from "./routes/wsMe";
-import { submitBlock } from "./routes/wsSubmission";
-import { getSubscriptions, subscribe, unsubscribe } from "./routes/wsSubscription";
-import { makeTransaction } from "./routes/wsTransactions";
-import { getWork } from "./routes/wsWork";
+import { getAddress } from "./routes/wsAddresses.js";
+import { getMe } from "./routes/wsMe.js";
+import { submitBlock } from "./routes/wsSubmission.js";
+import { getSubscriptions, subscribe, unsubscribe } from "./routes/wsSubscription.js";
+import { makeTransaction } from "./routes/wsTransactions.js";
+import { getWork } from "./routes/wsWork.js";
 
-import WebSocketAsPromised from "websocket-as-promised";
 import NodeWebSocket from "ws";
 
 import { TypedEmitter } from "tiny-typed-emitter";
-import { RateLimiter } from "limiter";
+import { RateLimiter } from "limiter-es6-compat";
 
-import { KristWalletFormatName } from "../../util/walletFormats";
-import { Sha256Fn } from "../../util/internalCrypto";
-import { calculateAddressFromOptions, isObject } from "../../util/internalUtil";
+import { KristWalletFormatName } from "../../util/walletFormats.js";
+import { Sha256Fn } from "../../util/internalCrypto.js";
+import { calculateAddressFromOptions, isObject } from "../../util/internalUtil.js";
+
+type BrowserWebSocket = WebSocket;
 
 interface KristWsClientEvents {
   "ready": (motd: KristMotd) => void;
@@ -62,6 +63,7 @@ interface KristWsClientEvents {
   "message": (msg: KristWsS2CMessage) => void;
   "wsOpen": () => void;
   "wsClose": (code: number, reason: string) => void;
+  "wsError": (err: Error) => void;
 
   "errorInvalidMessage": (msg: any) => void;
   "errorUnexpectedResponse": (msg: KristWsS2CResponseMessage) => void;
@@ -154,11 +156,13 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
   private connectDebounceMs = DEFAULT_CONNECT_DEBOUNCE_MS;
   private forceClosing = false;
 
-  private wsp?: WebSocketAsPromised;
+  private ws: NodeWebSocket | BrowserWebSocket | null = null;
+  private isOpened = false;
+  private isClosed = false;
 
   protected privatekey?: string;
-  private initSubscriptions: KristWsSubscription[] = [];
-  private maxReconnectSecs = 60;
+  private readonly initSubscriptions: KristWsSubscription[] = [];
+  private readonly maxReconnectSecs: number = 60;
 
   /**
    * Emitted when the client has connected to the server and is ready to receive
@@ -235,7 +239,7 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
     this.maxReconnectSecs = Math.max(options?.maxReconnectSecs || 60, 1);
   }
 
-  private async _connect() {
+  private async _connect(): Promise<void> {
     this.setConnectionState("disconnected");
 
     // Generate the privatekey if needed
@@ -251,33 +255,55 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
 
     this.setConnectionState("connecting");
 
-    this.wsp = new WebSocketAsPromised(url, {
-      // In the browser, use the global WebSocket object.
-      // In Node, use the WebSocket object from the `ws` package.
-      createWebSocket: u => (isBrowser
-        ? new globalThis.WebSocket(u)
-        : new NodeWebSocket(u, {
-          headers: {
-            "User-Agent": this.userAgent
-          }
-        })) as WebSocket,
+    return new Promise((resolve, reject) => {
+      const onOpen = () => {
+        this.isOpened = true;
+        this.isClosed = false;
+        this.emit("wsOpen");
+        resolve();
+      };
 
-      // In Node, if we're using the `ws` package, we need to make sure event
-      // data is passed directly to the `onmessage` handler, not `event.data`
-      ...(isBrowser ? {} : { extractMessageData: e => e }),
+      const onClose = () => {
+        this.isOpened = false;
+        this.isClosed = true;
+        this.handleClose({ code: 1000, reason: "NYI" });
+        reject(new Error("WebSocket closed"));
+      };
 
-      // Communicate via JSON
-      packMessage: data => JSON.stringify(data),
-      unpackMessage: data => JSON.parse(data.toString()),
+      const onError = (err: Error) => {
+        this.isOpened = false;
+        this.isClosed = true;
+        this.emit("wsError", err);
+        reject(err);
+      };
+
+      const onMessage = (msg: any) => {
+        try {
+          const data = JSON.parse(msg) as KristWsS2CMessage;
+          console.log(data);
+          this.handleMessage(data);
+        } catch (err: any) {
+          this.emit("errorInvalidMessage", msg);
+        }
+      };
+
+      if (isBrowser) {
+        this.ws = new WebSocket(url, this.userAgent);
+        this.ws.onopen = onOpen;
+        this.ws.onclose = onClose;
+        this.ws.onerror = (e) => onError(new Error(e.toString())); // who knows
+        this.ws.onmessage = (e) => onMessage(e.data);
+      } else {
+        this.ws = new NodeWebSocket(url, { headers: { "User-Agent": this.userAgent } });
+        this.ws.on("open", onOpen);
+        this.ws.on("close", onClose);
+        this.ws.on("error", onError);
+        this.ws.on("message", onMessage);
+      }
+
+      this.messageId = 1;
+      this.connectDebounceMs = DEFAULT_CONNECT_DEBOUNCE_MS;
     });
-
-    this.wsp.onOpen.addListener(() => this.emit("wsOpen"));
-    this.wsp.onUnpackedMessage.addListener(this.handleMessage.bind(this));
-    this.wsp.onClose.addListener(this.handleClose.bind(this));
-
-    this.messageId = 1;
-    await this.wsp.open();
-    this.connectDebounceMs = DEFAULT_CONNECT_DEBOUNCE_MS;
   }
 
   /**
@@ -297,8 +323,7 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
   }
 
   private handleMessage(msg: KristWsS2CMessage): void {
-    if (!this.wsp || !this.wsp.isOpened || this.wsp.isClosed
-      || this.forceClosing) return;
+    if (!this.ws || !this.isOpened || this.isClosed || this.forceClosing) return;
 
     if (!msg.type) {
       this.emit("errorInvalidMessage", msg);
@@ -360,7 +385,7 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
 
     this.reconnectionTimer = setTimeout(() => {
       this.connectDebounceMs = Math.min(this.connectDebounceMs * 2, this.maxReconnectSecs * 1000);
-      this._connect();
+      this._connect().catch(err => this.handleDisconnect(err));
     }, this.connectDebounceMs);
   }
 
@@ -374,8 +399,8 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
     if (this.forceClosing) return;
     this.forceClosing = true;
 
-    if (!this.wsp || !this.wsp.isOpened || this.wsp.isClosed) return;
-    this.wsp.close();
+    if (!this.ws || !this.isOpened || this.isClosed) return;
+    this.ws.close();
   }
 
   private setConnectionState(state: WsConnectionState): void {
@@ -393,7 +418,7 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
     await limiter.removeTokens(1);
 
     // TODO: Catch here
-    this.wsp?.sendPacked(msg);
+    this.ws?.send(JSON.stringify(msg));
   }
 
   /**

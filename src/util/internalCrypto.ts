@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import shajs from "sha.js";
+import { Sha256 } from "@aws-crypto/sha256-js";
 
 export const toHex = (input: ArrayBufferLike | Uint8Array): string =>
   [...(input instanceof Uint8Array ? input : new Uint8Array(input))]
@@ -36,7 +36,9 @@ export const sha256: Sha256Fn = async (input: string): Promise<string> => {
   // Note that this is not actually an asynchronous operation currently (due to
   // difficulties shimming between browser and Node environments), but the API
   // is implemented as a Promise for future extensibility.
-  return shajs("sha256").update(input).digest("hex");
+  const hash = new Sha256();
+  hash.update(input);
+  return toHex(await hash.digest());
 };
 export type Sha256Fn = (input: string) => Promise<string>;
 
@@ -47,7 +49,7 @@ export type Sha256Fn = (input: string) => Promise<string>;
  * This is equivalent to <code>sha256(sha256(input))</code>.
  *
  * @param input - The input string to hash.
- * @param sha256 - The SHA-256 function to use. Defaults to a pure JS
+ * @param sha256Fn - The SHA-256 function to use. Defaults to a pure JS
  *   implementation. You do not normally need to supply this.
  * @returns The double hexadecimal SHA-256 digest of <code>input</code>.
  */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -21,8 +21,8 @@
 
 /* eslint-disable eqeqeq */
 
-import { Sha256Fn } from "./internalCrypto";
-import { applyWalletFormat, KristWalletFormatName } from "./walletFormats";
+import { Sha256Fn } from "./internalCrypto.js";
+import { applyWalletFormat, KristWalletFormatName } from "./walletFormats.js";
 
 export function lut<T extends number | string>(data: T[]): Record<T, true> {
   const out: any = {};

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -19,7 +19,7 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { memoize, escapeRegExp, toString } from "./internalUtil";
+import { memoize, escapeRegExp, toString } from "./internalUtil.js";
 
 export const BARE_NAME_REGEX = /^([a-z0-9]{1,64})$/;
 export const MAX_NAME_LENGTH = 64;

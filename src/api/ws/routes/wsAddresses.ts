@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -20,7 +20,7 @@
  */
 
 import { KristAddress, KristWsC2SAddress, KristWsS2CAddress } from "../../../types";
-import { KristWsClient } from "../KristWsClient";
+import { KristWsClient } from "../KristWsClient.js";
 
 /**
  * Gets a single address.

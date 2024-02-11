@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -20,7 +20,7 @@
  */
 
 import { KristErrorWebSocketStart } from "../../errors";
-import { KristApi } from "../KristApi";
+import { KristApi } from "../KristApi.js";
 
 export async function wsStart(
   this: KristApi,

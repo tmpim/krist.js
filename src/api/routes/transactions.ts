@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -24,8 +24,8 @@ import {
   KristApiPaginatedResponseBase, KristApiTransactionPaginationOptions, OnPageFn,
   paginateCollection, pickTransactionPaginationOptions
 } from "../../util/apiUtil";
-import { calculateAddressFromOptions, KristAuthOptions } from "../../util/internalUtil";
-import { KristApi } from "../KristApi";
+import { calculateAddressFromOptions, KristAuthOptions } from "../../util/internalUtil.js";
+import { KristApi } from "../KristApi.js";
 
 export interface KristApiTransactionResponse {
   transaction: KristTransaction;

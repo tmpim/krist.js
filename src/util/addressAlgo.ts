@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -19,9 +19,9 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { isNil } from "./internalUtil";
-import { argFunction, argOneOf, argStringNonEmpty } from "./argValidation";
-import { doubleSha256, sha256, Sha256Fn } from "./internalCrypto";
+import { isNil } from "./internalUtil.js";
+import { argFunction, argOneOf, argStringNonEmpty } from "./argValidation.js";
+import { doubleSha256, sha256, Sha256Fn } from "./internalCrypto.js";
 import {
   applyWalletFormat, KristWalletFormatName, KRIST_WALLET_FORMAT_NAMES
 } from "./walletFormats";
@@ -37,7 +37,7 @@ import {
  * @param walletFormat - The wallet format to apply to the password to convert
  *   it into a private key, defaults to `"kristwallet"`.
  * @param addressPrefix - The address prefix to use, defaults to `"k"`.
- * @param sha256 - The SHA-256 function to use. Defaults to a pure JS
+ * @param sha256Fn - The SHA-256 function to use. Defaults to a pure JS
  *   implementation. You do not normally need to supply this.
  *
  * @returns A tuple containing the generated address and the private key with
@@ -96,7 +96,7 @@ const hexToBase36 = (input: number): string => {
  *
  * @param key - The private key to generate the address from.
  * @param addressPrefix - The address prefix to use, defaults to `"k"`.
- * @param sha256 - The SHA-256 function to use. Defaults to a pure JS
+ * @param sha256Fn - The SHA-256 function to use. Defaults to a pure JS
  *   implementation. You do not normally need to supply this.
  *
  * @returns The generated address

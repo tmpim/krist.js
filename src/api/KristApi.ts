@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -19,43 +19,43 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import fetch from "cross-fetch";
-import { RateLimiter } from "limiter";
+import { fetch } from "cross-fetch";
+import { RateLimiter } from "limiter-es6-compat";
 import os from "os";
 
 import { KristApiResponse } from "../types";
 
-import packageJson from "../../package.json";
+import packageJson from "../../package.json" with { "type": "json" };
 import { coerceKristError, KristErrorRateLimit } from "../errors";
-import { argObject, argStringNonEmpty } from "../util/argValidation";
-import { isNil } from "../util/internalUtil";
+import { argObject, argStringNonEmpty } from "../util/argValidation.js";
+import { isNil } from "../util/internalUtil.js";
 
-import { KristWsClientOptions, KristWsClient } from "./ws/KristWsClient";
+import { KristWsClientOptions, KristWsClient } from "./ws/KristWsClient.js";
 
 import {
   getAddress, getAddresses, getAddressNames, getAddressTransactions,
   getRichAddresses, paginateAddresses, paginateAddressNames,
   paginateAddressTransactions, paginateRichAddresses
 } from "./routes/addresses";
-import { motd } from "./routes/motd";
-import { supply } from "./routes/supply";
+import { motd } from "./routes/motd.js";
+import { supply } from "./routes/supply.js";
 import {
   getBlocks, getLatestBlocks, getLowestBlocks, getLastBlock, getBlockValue,
   getBlock, paginateBlocks, paginateLatestBlocks, paginateLowestBlocks
 } from "./routes/blocks";
-import { login } from "./routes/login";
+import { login } from "./routes/login.js";
 import {
   checkNameAvailability, getNameCost, getNameBonus, getNames, getNewNames,
   getName, registerName, transferName, updateName, paginateNames,
   paginateNewNames
 } from "./routes/names";
-import { submitBlock } from "./routes/submission";
+import { submitBlock } from "./routes/submission.js";
 import {
   getTransactions, getLatestTransactions, getTransaction, makeTransaction,
   paginateTransactions, paginateLatestTransactions
 } from "./routes/transactions";
-import { getDetailedWork, getWork, getWorkOverTime } from "./routes/work";
-import { wsStart } from "./routes/wsStart";
+import { getDetailedWork, getWork, getWorkOverTime } from "./routes/work.js";
+import { wsStart } from "./routes/wsStart.js";
 
 /** Options for the Krist API client. */
 export interface KristApiOptions {
@@ -84,8 +84,8 @@ const limiter = new RateLimiter({
 /** Client class for the Krist API. {@link KristApiOptions | Options} may be
  * specified as a constructor parameter. */
 export class KristApi {
-  private syncNode: string;
-  private userAgent: string;
+  private readonly syncNode: string;
+  private readonly userAgent: string;
 
   /**
    * Client class for the Krist API.
@@ -125,7 +125,7 @@ export class KristApi {
    *
    * @returns The response of the request.
    */
-  async request<T>(
+  async request<T extends Record<string, any>>(
     method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH",
     endpoint: string,
     qs?: any,
@@ -142,10 +142,10 @@ export class KristApi {
     // Apply rate limiting
     await limiter.removeTokens(1);
 
-    const browserHeaders: any = typeof window !== undefined ? {
+    const browserHeaders: any = typeof window !== "undefined" ? {
       "Library-Agent": "krist.js/" + packageJson.version,
     } : {};
-    const nodeHeaders: any = typeof window === undefined ? {
+    const nodeHeaders: any = typeof window === "undefined" ? {
       "Library-Agent": `${this.userAgent} (${os.platform()} ${os.release()}; Node ${process.version})`,
     } : {};
 
@@ -186,7 +186,11 @@ export class KristApi {
    *
    * @returns The response of the request.
    */
-  async get<T>(endpoint: string, qs?: any, options?: RequestInit): Promise<KristApiResponse<T>> {
+  async get<T extends Record<string, any>>(
+    endpoint: string,
+    qs?: any,
+    options?: RequestInit
+  ): Promise<KristApiResponse<T>> {
     return this.request<T>("GET", endpoint, qs, options);
   }
 
@@ -199,6 +203,8 @@ export class KristApi {
    * @typeParam T - The type of the response body when parsed as JSON.
    *
    * @param endpoint - The endpoint to request, starting with `/`.
+   * @param body - The body to send with the request. May be an object or a
+   *   string.
    * @param qs - The query string to use for the request. May be an object or a
    *   string.
    * @param options - The
@@ -207,7 +213,12 @@ export class KristApi {
    *
    * @returns The response of the request.
    */
-  async post<T>(endpoint: string, body?: any, qs?: any, options?: RequestInit): Promise<KristApiResponse<T>> {
+  async post<T extends Record<string, any>>(
+    endpoint: string,
+    body?: any,
+    qs?: any,
+    options?: RequestInit
+  ): Promise<KristApiResponse<T>> {
     return this.request<T>("POST", endpoint, qs, {
       ...buildBody(body),
       ...options

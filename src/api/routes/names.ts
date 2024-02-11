@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -19,13 +19,13 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristApi } from "..";
+import { KristApi } from "../KristApi.js";
 import { KristName } from "../../types";
 import {
   KristApiPaginatedResponseBase, KristApiPaginationOptions, OnPageFn,
   paginateCollection, pickPaginationOptions
 } from "../../util/apiUtil";
-import { calculateAddressFromOptions, KristAuthOptions } from "../../util/internalUtil";
+import { calculateAddressFromOptions, KristAuthOptions } from "../../util/internalUtil.js";
 
 export interface KristApiNameResponse {
   name: KristName;
@@ -63,7 +63,7 @@ export async function checkNameAvailability(
 // GET /names/cost
 // -----------------------------------------------------------------------------
 /**
- * @deprecated Use {@link KristApi.motd} to get API/currency constants
+ * @deprecated Use {@link KristApi.prototype.motd} to get API/currency constants
  * instead.
 */
 export async function getNameCost(

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -20,7 +20,7 @@
  */
 
 import { KristWsS2CMe } from "../../../types";
-import { KristWsClient } from "../KristWsClient";
+import { KristWsClient } from "../KristWsClient.js";
 
 /**
  * Gets information about the user the websocket is currently authenticated as.

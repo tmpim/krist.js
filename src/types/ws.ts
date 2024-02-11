@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 - 2022 Drew Edwards, tmpim
+ * Copyright 2022 - 2024 Drew Edwards, tmpim
  *
  * This file is part of Krist.js.
  *
@@ -19,9 +19,9 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import { KristAddress, KristBlock, KristMotd, KristName, KristTransaction } from "./krist";
+import { KristAddress, KristBlock, KristMotd, KristName, KristTransaction } from "./krist.js";
 
-import { lut } from "../util/internalUtil";
+import { lut } from "../util/internalUtil.js";
 
 /** The current state of a websocket connection. */
 export type KristWsConnectionState = "connected" | "disconnected"
