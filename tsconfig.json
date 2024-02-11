@@ -16,10 +16,10 @@
     "downlevelIteration": true,
     "resolveJsonModule": true,
     "stripInternal": true,
-    "outDir": "lib",
+    "outDir": "lib/esm",
     "rootDir": "."
   },
   "include": [
-    "src/**/*"
+    "src/**/*", "typings/**/*"
   ]
 }

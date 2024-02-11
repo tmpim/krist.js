@@ -40,7 +40,7 @@ import { getWork } from "./routes/wsWork.js";
 import NodeWebSocket from "ws";
 
 import { TypedEmitter } from "tiny-typed-emitter";
-import rateLimiter from "limiter";
+import RateLimiterMemory from "rate-limiter-flexible/lib/RateLimiterMemory.js";
 
 import { KristWalletFormatName } from "../../util/walletFormats.js";
 import { Sha256Fn } from "../../util/internalCrypto.js";
@@ -122,9 +122,9 @@ export interface KristWsClientOptions extends KristWsClientOptionsPassword,
 }
 
 // Global rate limiter so that multiple KristApi instances will share this
-const limiter = new rateLimiter.RateLimiter({
-  tokensPerInterval: 120,
-  interval: "minute"
+const limiter = new RateLimiterMemory({
+  points: 120, // 120 requests per minute
+  duration: 60
 });
 
 /**
@@ -415,7 +415,7 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
     if (typeof msg.id !== "number") return;
 
     // Apply rate limiting
-    await limiter.removeTokens(1);
+    await limiter.consume("krist-ws", 1);
 
     // TODO: Catch here
     this.ws?.send(JSON.stringify(msg));

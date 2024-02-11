@@ -2248,16 +2248,6 @@ just-extend@^6.2.0:
   resolved "https://registry.yarnpkg.com/just-extend/-/just-extend-6.2.0.tgz#b816abfb3d67ee860482e7401564672558163947"
   integrity sha512-cYofQu2Xpom82S6qD778jBDpwvvy39s1l/hrYij2u9AMdQcGRpaBu6kY4mVhuno5kJVi1DAz4aiphA2WI1/OAw==
 
-just-performance-es6-compat@4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/just-performance-es6-compat/-/just-performance-es6-compat-4.3.2.tgz#7877f34cbe25fd994bc2265d0c919bf728dcc42e"
-  integrity sha512-bNPuqRaV8PrqYVivdN8FsKi0rmXaQ0Y63oasFUQFJooJPH0r26LdfBAfoodhUQI6I6cek9yNo+tnGiF0R3pIHw==
-
-just-performance@4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/just-performance/-/just-performance-4.3.0.tgz#cc2bc8c9227f09e97b6b1df4cd0de2df7ae16db1"
-  integrity sha512-L7RjvtJsL0QO8xFs5wEoDDzzJwoiowRw6Rn/GnvldlchS2JQr9wFYPiwZcDfrbbujEKqKN0tvENdbjXdYhDp5Q==
-
 keyv@^4.5.3:
   version "4.5.4"
   resolved "https://registry.yarnpkg.com/keyv/-/keyv-4.5.4.tgz#a879a99e29452f942439f2a405e3af8b31d4de93"
@@ -2272,20 +2262,6 @@ levn@^0.4.1:
   dependencies:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
-
-limiter-es6-compat@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/limiter-es6-compat/-/limiter-es6-compat-2.1.2.tgz#93fdc5fadf5f220f81ffdfc4f8b2b976cc876f98"
-  integrity sha512-rAi6LCOubXfnojSePboCylTSJWi9m0hlnZJ6AYsBv0clRFr4PJAZd8DtDVhXSN5Ed5nXa6pULHu9sJxoxpWWww==
-  dependencies:
-    just-performance-es6-compat "4.3.2"
-
-limiter@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/limiter/-/limiter-2.1.0.tgz#d38d7c5b63729bb84fb0c4d8594b7e955a5182a2"
-  integrity sha512-361TYz6iay6n+9KvUUImqdLuFigK+K79qrUtBsXhJTLdH4rIt/r1y8r1iozwh8KbZNpujbFTSh74mJ7bwbAMOw==
-  dependencies:
-    just-performance "4.3.0"
 
 locate-path@^5.0.0:
   version "5.0.0"
@@ -2826,6 +2802,11 @@ randombytes@^2.1.0:
   integrity sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==
   dependencies:
     safe-buffer "^5.1.0"
+
+rate-limiter-flexible@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/rate-limiter-flexible/-/rate-limiter-flexible-4.0.1.tgz#79b0ce111abe9c5da41d6fddf7cca93cedd3a8fc"
+  integrity sha512-2/dGHpDFpeA0+755oUkW+EKyklqLS9lu0go9pDsbhqQjZcxfRyJ6LA4JI0+HAdZ2bemD/oOjUeZQB2lCZqXQfQ==
 
 react-is@^16.13.1:
   version "16.13.1"

@@ -56,7 +56,7 @@ export default [
   },
   {
     // Declarations: browser.d.ts
-    input: "lib/src/browser.d.ts",
+    input: "lib/esm/src/browser.d.ts",
     output: [{ file: "lib/browser.d.ts", format: "es" }],
     plugins: [pluginDts()]
   },

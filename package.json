@@ -11,15 +11,17 @@
   "license": "GPL-3.0",
   "private": false,
   "type": "module",
+  "main": "lib/cjs/src/node.js",
   "exports": {
     ".": {
-      "import": "./lib/src/node.js",
-      "default": "./lib/src/node.js",
+      "import": "./lib/esm/src/node.js",
+      "default": "./lib/esm/src/node.js",
+      "require": "./lib/cjs/src/node.js",
       "browser": "./lib/browser.js",
-      "und": "./lib/browser.js"
+      "umd": "./lib/browser.js"
     }
   },
-  "types": "lib/src/node.d.ts",
+  "types": "lib/esm/src/node.d.ts",
   "files": [
     "lib/**/*.{ts,js}",
     "README.md",
@@ -33,8 +35,9 @@
   },
   "scripts": {
     "clean": "rimraf lib",
-    "build": "yarn run clean && yarn run build:node && yarn run build:browser",
-    "build:node": "tsc -p tsconfig.json",
+    "build": "yarn run clean && yarn run build:node-esm && yarn run build:node-cjs && yarn run build:browser",
+    "build:node-esm": "tsc -p tsconfig.json",
+    "build:node-cjs": "tsc -p tsconfig.cjs.json",
     "build:browser": "rollup --config rollup.config.js",
     "test": "cross-env TSX_TSCONFIG_PATH='./tsconfig.test.json' NODE_ENV=test mocha",
     "test:coverage": "nyc yarn run test",
@@ -46,8 +49,7 @@
     "@aws-crypto/sha256-js": "^5.2.0",
     "axios": "^1.6.7",
     "buffer": "^6.0.3",
-    "limiter": "^2.1.0",
-    "limiter-es6-compat": "^2.1.2",
+    "rate-limiter-flexible": "^4.0.1",
     "tiny-typed-emitter": "^2.1.0",
     "ws": "^8.16.0",
     "wspromisify": "^2.4.4"

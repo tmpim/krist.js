@@ -19,12 +19,11 @@
  * For more project information, see <https://github.com/tmpim/Krist.js>.
  */
 
-import rateLimiter from "limiter";
+import RateLimiterMemory from "rate-limiter-flexible/lib/RateLimiterMemory.js";
 import os from "os";
 
 import { KristApiResponse } from "../types/index.js";
 
-import packageJson from "../../package.json" with { "type": "json" };
 import { coerceKristError, KristErrorRateLimit } from "../errors/index.js";
 import { argObject, argStringNonEmpty } from "../util/argValidation.js";
 import { isNil } from "../util/internalUtil.js";
@@ -74,10 +73,10 @@ export const buildBody = (value: any): RequestInit => ({
 });
 
 // Global rate limiter so that multiple KristApi instances will share this
-const limiter = new rateLimiter.RateLimiter({
+const limiter = new RateLimiterMemory({
   // Slightly lower than server to account for timing differences
-  tokensPerInterval: 300,
-  interval: "minute"
+  points: 300, // 300 requests per minute
+  duration: 60
 });
 
 /** Client class for the Krist API. {@link KristApiOptions | Options} may be
@@ -97,7 +96,7 @@ export class KristApi {
    */
   constructor({
     syncNode = "https://krist.dev/",
-    userAgent = "krist.js/" + packageJson.version,
+    userAgent = "krist.js",
   }: KristApiOptions = {}) {
     argStringNonEmpty(syncNode, "syncNode");
     argStringNonEmpty(userAgent, "userAgent");
@@ -139,10 +138,10 @@ export class KristApi {
     const url = new URL(endpoint.replace(/^\//, "") + qss, this.syncNode);
 
     // Apply rate limiting
-    await limiter.removeTokens(1);
+    await limiter.consume("krist-api", 1);
 
     const browserHeaders: any = typeof window !== "undefined" ? {
-      "Library-Agent": "krist.js/" + packageJson.version,
+      "Library-Agent": "krist.js",
     } : {};
     const nodeHeaders: any = typeof window === "undefined" ? {
       "Library-Agent": `${this.userAgent} (${os.platform()} ${os.release()}; Node ${process.version})`,
@@ -151,7 +150,7 @@ export class KristApi {
     const res = await fetch(url.toString(), {
       method,
       headers: {
-        "Library-Agent": "krist.js/" + packageJson.version,
+        "Library-Agent": "krist.js",
         "Accept": "application/json",
         ...browserHeaders,
         ...nodeHeaders,

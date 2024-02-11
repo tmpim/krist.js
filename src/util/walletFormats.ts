@@ -32,10 +32,10 @@ export type KristWalletFormatName = "kristwallet"
   | "jwalelset" | "api";
 
 export const KRIST_WALLET_FORMATS: Record<KristWalletFormatName, KristWalletFormat> = {
-  "kristwallet": async (sha256Fn = sha256, password) =>
+  "kristwallet": async (sha256Fn, password) =>
     await sha256Fn("KRISTWALLET" + password) + "-000",
 
-  "kristwallet_username_appendhashes": async (sha256Fn = sha256, password, username) =>
+  "kristwallet_username_appendhashes": async (sha256Fn, password, username) =>
     await sha256Fn(
       "KRISTWALLETEXTENSION"
       + await sha256Fn(
@@ -45,14 +45,14 @@ export const KRIST_WALLET_FORMATS: Record<KristWalletFormatName, KristWalletForm
       )
     ) + "-000",
 
-  "kristwallet_username": async (sha256Fn = sha256, password, username) =>
+  "kristwallet_username": async (sha256Fn, password, username) =>
     await sha256Fn(
       await sha256Fn(username || "")
       + "^"
       + await sha256Fn(password)
     ),
 
-  "jwalelset": async (sha256Fn = sha256, password) =>
+  "jwalelset": async (sha256Fn, password) =>
     await sha256Fn(await sha256Fn(await sha256Fn(await sha256Fn(
       await sha256Fn(await sha256Fn(await sha256Fn(await sha256Fn(
         await sha256Fn(await sha256Fn(await sha256Fn(await sha256Fn(
