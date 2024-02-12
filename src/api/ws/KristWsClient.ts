@@ -382,6 +382,8 @@ export class KristWsClient extends TypedEmitter<KristWsClientEvents> {
 
     this.setConnectionState("disconnected");
 
+    if (this.forceClosing) return;
+
     this.reconnectionTimer = setTimeout(() => {
       this.connectDebounceMs = Math.min(this.connectDebounceMs * 2, this.maxReconnectSecs * 1000);
       this._connect().catch(err => this.handleDisconnect(err));
