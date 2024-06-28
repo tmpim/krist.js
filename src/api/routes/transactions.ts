@@ -184,6 +184,9 @@ export async function getTransaction(
 export type KristApiMakeTransactionOptions = KristAuthOptions & {
   /** Optional metadata to include in the transaction. */
   metadata?: string;
+
+  /** Optional Request ID to use for this transaction. Must be a valid UUIDv4 if provided. */
+  requestId?: string;
 };
 
 /**
@@ -225,6 +228,7 @@ export async function makeTransaction(
     privatekey,
     to,
     amount,
-    metadata: options?.metadata
+    metadata: options?.metadata,
+    requestId: options?.requestId
   })).transaction;
 }
