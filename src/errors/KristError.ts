@@ -37,6 +37,8 @@ export class KristErrorAddressNotFound extends KristErrorNotFound {}
 export class KristErrorBlockNotFound extends KristErrorNotFound {}
 export class KristErrorTransactionNotFound extends KristErrorNotFound {}
 export class KristErrorNameNotFound extends KristErrorNotFound {}
+export class KristErrorInsufficientFunds extends KristError {}
+export class KristErrorTransactionConflict extends KristError {}
 export class KristErrorNameTaken extends KristError {}
 export class KristErrorNotNameOwner extends KristError {}
 export class KristErrorInvalidWebSocketToken extends KristError {}
@@ -73,6 +75,10 @@ export function coerceKristError(e: any): KristError | Error {
     return new KristErrorTransactionNotFound(error, message);
   case "name_not_found":
     return new KristErrorNameNotFound(error, message);
+  case "insufficient_funds":
+    return new KristErrorInsufficientFunds(error, message);
+  case "transaction_conflict":
+    return new KristErrorTransactionConflict(error, message);
   case "name_taken":
     return new KristErrorNameTaken(error, message);
   case "not_name_owner":

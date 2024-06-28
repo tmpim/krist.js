@@ -78,7 +78,7 @@ export const VALID_KRIST_WS_MESSAGE_TYPES = lut(KRIST_WS_MESSAGE_TYPES);
  * @see https://krist.dev/docs/#api-WebsocketGroup
  */
 export type KristWsS2CMessageType = "keepalive" | "hello" | "event"
-  | "response";
+  | "response" | "error";
 
 /**
  * Valid event types that may be received from a websocket connection.
@@ -203,7 +203,7 @@ export interface KristWsS2CResponseMessage extends KristWsS2CMessage {
 }
 /** @internal */
 export const _isMsgResponse = (msg: KristWsS2CMessage):
-  msg is KristWsS2CResponseMessage => msg.type === "response";
+  msg is KristWsS2CResponseMessage => msg.type === "response" || msg.type === "error";
 
 // -----------------------------------------------------------------------------
 // Messages - Addresses
@@ -321,6 +321,7 @@ export interface KristWsC2SMakeTransaction extends KristWsC2SMessage {
   to: string;
   amount: number;
   metadata?: string;
+  requestId?: string;
 }
 
 export interface KristWsS2CMakeTransaction extends KristWsS2CResponseMessage {
